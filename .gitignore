@@ -1,0 +1,15 @@
+.settings
+dist
+doc
+lib
+properties
+.compatibility
+.project
+build.xml
+mdia.bat
+mdia.jar
+.classpath
+/iexhub.adapter/sender.bat
+target
+hl7
+Adapter.log.connectathon.zip
