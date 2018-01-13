@@ -25,4 +25,8 @@
       </plugin>
     </plugins>
   </build>
+  <organization>
+  	<name>Eversolve</name>
+  	<url>www.eversolve.com</url>
+  </organization>
 </project>

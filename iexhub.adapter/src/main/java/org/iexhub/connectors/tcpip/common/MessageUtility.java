@@ -9,7 +9,6 @@ import java.math.BigInteger;
 import java.security.InvalidKeyException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 
@@ -20,13 +19,8 @@ import javax.crypto.spec.SecretKeySpec;
 
 import org.apache.log4j.Logger;
 
-import com.eversolve.Medi7.M7Composite;
 import com.eversolve.Medi7.M7DefinitionFile;
-import com.eversolve.Medi7.M7Exception;
 import com.eversolve.Medi7.M7Message;
-import com.eversolve.Medi7.M7Repeat;
-import com.eversolve.Medi7.datatypes.M7DateTime;
-import com.eversolve.Medi7.datatypes.M7Time;
 
 /*******************************************************************************
  * Copyright (c) 2015, 2017  Veterans Health Administration

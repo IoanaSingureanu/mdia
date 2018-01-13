@@ -252,13 +252,13 @@ public class DatabasePoller extends BasePersistence {
 	 * @return Vector of message objects (M7Message)
 	 */
 	protected Vector<M7Message> createMessageVector(
-			Vector<HashMap> rowVector, HashMap fieldColumMap,
-			HashMap fixedMap) {
+			Vector<HashMap> rowVector, HashMap<String, Column> fieldColumMap,
+			HashMap<String, Column> fixedMap) {
 
 		Vector<M7Message> messageVector = new Vector<M7Message>();
 		// iterate the mappings
 		for (int i = 0; i < rowVector.size(); i++) {
-			HashMap rowMap = rowVector.elementAt(i);
+			HashMap<String, ?> rowMap = rowVector.elementAt(i);
 			M7Message msg = msgFromRow(rowMap, fieldColumMap, fixedMap);
 
 			if (this.isValidationsEnabled()) {
@@ -301,8 +301,8 @@ public class DatabasePoller extends BasePersistence {
 	 *            HashMap
 	 * @return message M7Message
 	 */
-	protected M7Message msgFromRow(HashMap rowMap, HashMap fieldMap,
-			HashMap fixedFields) {
+	protected M7Message msgFromRow(HashMap<String, ?> rowMap, HashMap<String, Column> fieldMap,
+			HashMap<String, Column> fixedFields) {
 
 		M7Message msg = null;
 		try {
@@ -313,13 +313,13 @@ public class DatabasePoller extends BasePersistence {
 		}
 		Iterator<String> iterator = rowMap.keySet().iterator();
 		while (iterator.hasNext()) {
-			String column = (String) iterator.next();
+			String column = iterator.next();
 			String dbValue = (String) rowMap.get(column);
 			// since one column may be used many times, find each instance
-			Iterator fieldIterator = fieldMap.keySet().iterator();
+			Iterator<String> fieldIterator = fieldMap.keySet().iterator();
 			while (fieldIterator.hasNext()) {
-				String field = (String) fieldIterator.next();
-				Column col = (Column) fieldMap.get(field);
+				String field = fieldIterator.next();
+				Column col = fieldMap.get(field);
 				if (column.equalsIgnoreCase(col.getColumnName())) {
 					logger.debug(field + " -> " + dbValue + " -> " + column);
 					if (dbValue != null) {
@@ -350,8 +350,8 @@ public class DatabasePoller extends BasePersistence {
 		}
 		iterator = fixedFields.keySet().iterator();
 		while (iterator.hasNext()) {
-			String field = (String) iterator.next();
-			Column value = (Column) fixedFields.get(field);
+			String field = iterator.next();
+			Column value = fixedFields.get(field);
 			if (value == null) {
 				logger.warn("Null value for '" + field + "'");
 			} else {
@@ -372,13 +372,13 @@ public class DatabasePoller extends BasePersistence {
 		}
 		iterator = rowMap.keySet().iterator();
 		while (iterator.hasNext()) {
-			String column = (String) iterator.next();
+			String column = iterator.next();
 			String dbValue = (String) rowMap.get(column);
 			// since one column may be used many times, find each instance
-			Iterator fieldIterator = fieldMap.keySet().iterator();
+			Iterator<String> fieldIterator = fieldMap.keySet().iterator();
 			while (fieldIterator.hasNext()) {
-				String field = (String) fieldIterator.next();
-				Column col = (Column) fieldMap.get(field);
+				String field = fieldIterator.next();
+				Column col = fieldMap.get(field);
 				try {
 					if ((dbValue != null) && (col.getMultiplicity() > 0)
 							&& (dbValue.length() > col.getMaxLength())) {
